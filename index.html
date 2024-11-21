@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css"
+    />
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      .wrap {
+        width: 1100px;
+        height: 850px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-family: "GalmuriMono11", sans-serif;
+        font-weight: bold;
+        background-image: url(window.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .gameWrap {
+        width: 600px;
+        height: 700px;
+        background-image: url(tab.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      #play {
+        width: 40px;
+      }
+      .gamestart {
+        width: 220px;
+        display: block;
+        margin: 20px auto;
+      }
+      .medal {
+        width: 180px;
+        display: block;
+        margin: 20px auto;
+        margin-top: 43px;
+        display: none;
+      }
+      .heart {
+        width: 30px;
+        margin-bottom: 15px;
+      }
+      h2 {
+        margin-top: 120px;
+      }
+      form {
+        margin: 20px 0px;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+      }
+      p {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="gameWrap">
+        <h2>숫자맞추기 게임</h2>
+        <img class="gamestart" src="number.JPG" />
+        <img class="medal" src="win.JPG" />
+        <img class="heart heart1" src="heart.png" />
+        <img class="heart heart2" src="heart.png" />
+        <img class="heart heart3" src="heart.png" />
+        <img class="heart heart4" src="heart.png" />
+        <img class="heart heart5" src="heart.png" />
+        <span><br />결과화면 :</span><span id="result"> up / down / bingo</span>
+        <form>
+          <label>숫자입력 : </label>
+          <input id="user" placeholder="1~100 숫자 입력" />
+          <img id="play" src="on.png" />
+        </form>
+        <p>
+          1부터 100 사이에서 무작위로 생성된 숫자를 맞혀보세요!<br />
+          <span class="explain">입력하신 숫자가 정답보다 크면 down</span><br />
+          <span class="explain"
+            >입력하신 숫자가 정답보다 작으면 up이 출력됩니다. <br />
+            다섯 번의 기회 안으로 숫자를 맞혀보세요!</span
+          >
+        </p>
+      </div>
+    </div>
+    <script>
+      let result = document.querySelector("#result");
+      let user = document.querySelector("#user");
+      let play = document.querySelector("#play");
+
+      let playImg = document.querySelector(".gamestart");
+      let winImg = document.querySelector(".medal");
+
+      let heart1 = document.querySelector(".heart1");
+      let heart2 = document.querySelector(".heart2");
+      let heart3 = document.querySelector(".heart3");
+      let heart4 = document.querySelector(".heart4");
+      let heart5 = document.querySelector(".heart5");
+
+      let chance = 5;
+      let finish = false;
+
+      //   let userNum = parseInt(user);
+
+      function randomNum() {
+        let num = Math.random();
+        let computerNum = Math.floor(num * 100 + 1);
+        // console.log(`컴퓨터값 ${computerNum}`);
+        play.addEventListener("click", (e) => {
+          e.preventDefault(); //새로고침막기
+          let userNum = user.value;
+          //   console.log(`입력값 ${userNum}`);
+          let numberValue = userNum;
+          chance--;
+
+          if (userNum > computerNum) {
+            result.innerText = " down";
+            playImg.style.display = "block";
+            winImg.style.display = "none";
+          } else if (userNum < computerNum) {
+            result.innerText = " up";
+            playImg.style.display = "block";
+            winImg.style.display = "none";
+          } else {
+            result.innerText = " bingo";
+            playImg.style.display = "none";
+            winImg.style.display = "block";
+          }
+
+          if (chance == 4) {
+            heart1.style.display = "none";
+          } else if (chance == 3) {
+            heart2.style.display = "none";
+          } else if (chance == 2) {
+            heart3.style.display = "none";
+          } else if (chance == 1) {
+            heart4.style.display = "none";
+          } else {
+            heart5.style.display = "none";
+            result.innerText = " Game Over";
+            finish = true;
+          }
+          if (finish == true) {
+            play.disabled = true;
+          }
+        });
+      }
+      randomNum();
+    </script>
+  </body>
+</html>
