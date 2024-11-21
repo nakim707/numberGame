@@ -54,6 +54,13 @@
         margin-top: 43px;
         display: none;
       }
+      .over {
+        margin: 0px auto;
+        width: 220px;
+        display: none;
+        margin-top: 50px;
+        margin-bottom: 70px;
+      }
       .heart {
         width: 30px;
         margin-bottom: 15px;
@@ -78,6 +85,7 @@
         <h2>숫자맞추기 게임</h2>
         <img class="gamestart" src="number.JPG" />
         <img class="medal" src="win.JPG" />
+        <img class="over" src="over.jpg" /><br />
         <img class="heart heart1" src="heart.png" />
         <img class="heart heart2" src="heart.png" />
         <img class="heart heart3" src="heart.png" />
@@ -106,6 +114,7 @@
 
       let playImg = document.querySelector(".gamestart");
       let winImg = document.querySelector(".medal");
+      let over = document.querySelector(".over");
 
       let heart1 = document.querySelector(".heart1");
       let heart2 = document.querySelector(".heart2");
@@ -153,6 +162,9 @@
             heart4.style.display = "none";
           } else {
             heart5.style.display = "none";
+            playImg.style.display = "none";
+            winImg.style.display = "none";
+            over.style.display = "block";
             result.innerText = " Game Over";
             finish = true;
           }
