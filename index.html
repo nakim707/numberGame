@@ -125,6 +125,8 @@
       let chance = 5;
       let finish = false;
 
+      let history = [];
+
       //   let userNum = parseInt(user);
 
       function randomNum() {
@@ -152,6 +154,10 @@
             winImg.style.display = "block";
           }
 
+          if (userNum < 1 || userNum > 100) {
+            result.innerText = "1부터 100까지의 숫자를 입력하세요";
+            return;
+          }
           if (chance == 4) {
             heart1.style.display = "none";
           } else if (chance == 3) {
